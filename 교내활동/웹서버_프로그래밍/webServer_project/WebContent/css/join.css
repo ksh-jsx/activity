@@ -1,0 +1,122 @@
+.signup_container{width: 100%;max-width: 800px;margin: 0 auto;} 
+.signup_container h2{width: 100%;text-align: center} 
+.signup_container .signup_form{width: 90%;max-width: 500px;margin: 0 auto;margin-top: 40px;padding-left: 5%;padding-right: 5%;} 
+.signup_container .signup_form .signup_div{width:100%;height: 25px;margin-top:20px}
+.signup_container .signup_form .signup_div .signup_left{width: 35%;float: left;text-align: left;font-weight: bold;padding-top:7px;font-size:19px} 
+.signup_container .signup_form .signup_div .signup_right{width: 65%;height: 100%;float: left;text-align: left} 
+.signup_container .signup_form .signup_div .signup_right input{width: 100%;height: 100%;} 
+.signup_container .signup_form .signup_div .signup_right #id_phone1,#id_phone2,#id_phone3{width: 23%;} 
+
+
+.signup_container .terms{width:90%;max-width:800px;margin:0 auto;margin-top:20px;height:350px}
+.signup_container .terms > p{font-weight: bold;font-size:20px}
+.signup_container .terms > div{border: 2px solid #e8e8e8;height: 250px;margin-top:10px}
+.signup_container .terms .join_info {float:left;width: 95%;height: 250px;overflow-y: scroll;font-size: 12px;color: #666;background: #fff;border: 1px solid #ddd;margin-top: 5px;line-height: 18px;padding: 10px;}
+.signup_container .terms .join_info .table_box{font-size:0.5em;}
+.signup_container .terms .join_info .table_box tbody tr td:first{border-right:1px solid}
+.signup_container .terms > div:last-child{border: 0;width: 100%;height: 50px;float: left}
+.signup_container .terms input,.signup_container .terms label{float: right}
+
+.signup_container #submitDiv{width:150px;height:40px;margin: 0 auto;text-align: center;margin-top:40px;background-color: #218261;color:#ffffff;padding-top:20px;font-weight: bold}
+
+@media (max-width:410px)
+{
+    .signup_container .signup_form .signup_div .signup_left{font-size: 17px;width: 30%;} 
+    .signup_container .signup_form .signup_div .signup_right{width: 70%;height: 100%;float: left;text-align: left} 
+    .signup_container .terms > p{font-weight: bold;font-size:12px}
+}
+@media (max-width:350px)
+{
+    .signup_container .signup_form .signup_div .signup_left{font-size: 15px;width: 35%;} 
+    .signup_container .signup_form .signup_div .signup_right{width: 65%;height: 100%;float: left;text-align: left} 
+}
+
+@keyframes colored {
+  0% {border: 2px solid #bdbdbd}
+  100% {border: 2px solid #218261}
+}
+
+/*체크박스 디자인*/
+.checks {position: relative;}
+
+.checks input[type="checkbox"] {  /* 실제 체크박스는 화면에서 숨김 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0
+}
+.checks input[type="checkbox"] + label {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.checks input[type="checkbox"] + label:before {  /* 가짜 체크박스 */
+  content: ' ';
+  display: inline-block;
+  width: 21px;  /* 체크박스의 너비를 지정 */
+  height: 21px;  /* 체크박스의 높이를 지정 */
+  line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */
+  margin: -2px 8px 0 0;
+  text-align: center; 
+  vertical-align: middle;
+  background: #fafafa;
+  border: 1px solid #cacece;
+  border-radius : 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+}
+
+
+
+
+.checks.etrans input[type="checkbox"] + label {
+  padding-left: 30px;
+  font-size:20px
+}
+.checks.etrans input[type="checkbox"] + label:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  opacity: .6;
+  box-shadow: none;
+  border-color: #218261;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+.checks.etrans input[type="checkbox"]:checked + label:before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity:1; 
+  background: transparent;
+  border-color:transparent #218261 #218261 transparent;
+  border-top-color:transparent;
+  border-left-color:transparent;
+  -ms-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+}
+
+.no-csstransforms .checks.etrans input[type="checkbox"]:checked + label:before {
+  /*content:"\2713";*/
+  content: "\2714";
+  top: 0;
+  left: 0;
+  width: 21px;
+  line-height: 21px;
+  color: #218261;
+  text-align: center;
+  border: 1px solid #218261;
+}
+

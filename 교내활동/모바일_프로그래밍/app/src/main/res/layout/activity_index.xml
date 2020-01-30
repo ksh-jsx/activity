@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".index"
+    android:orientation="vertical">
+
+    <TabHost
+        android:id="@+id/tabHost1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- FrameLayout의 id값이 반드시 "tabcontent"로 지정되어야 함. -->
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9">
+
+                <!-- 첫 번째 페이지. content1 -->
+                <LinearLayout
+                    android:id="@+id/content1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/AttractionName"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:background="#00ff0000"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textSize="20dp"
+                        android:layout_marginTop="30dp"
+                        android:textStyle="bold"
+                        android:textColor="#33aabb"/>
+                    <ListView
+                        android:id="@+id/pakingList"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="10"></ListView>
+                    <TextView
+                        android:id="@+id/notice2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="일정을 먼저 추가해주세요"
+                        android:visibility="visible"
+                        android:paddingTop="100dp"
+                        android:textAlignment="center"
+                        android:textSize="20dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#33aabb"></View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/loadBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:background="#00ff0000"
+                            android:text="+"
+                            android:textSize="30dp"/>
+                        <EditText
+                            android:id="@+id/setLoad"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="6"
+                            android:hint="새로운 항목을 입력하여 추가하거나 이미 있는 항목을 삭제하세요"
+                            android:textSize="12dp" />
+                        <Button
+                            android:id="@+id/subtractBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:background="#00ff0000"
+                            android:text="-"
+                            android:textSize="30dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- 두 번째 페이지. content2 -->
+                <LinearLayout
+                    android:id="@+id/content2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <Button
+                            android:id="@+id/del"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:text="일정 다시짜기"
+                            android:background="#00ff0000"
+                            android:textStyle="bold"
+                            android:layout_gravity="left"
+                            android:textColor="#33aabb"/>
+
+                        <Button
+                            android:id="@+id/empty"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:background="#00ff0000">
+                        </Button>
+
+                        <Button
+                            android:id="@+id/gotoPlan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.33"
+                            android:text="일정 추가하기"
+                            android:background="#00ff0000"
+                            android:textStyle="bold"
+                            android:layout_gravity="right"
+                            android:textColor="#33aabb"/>
+
+                    </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="9">
+                        <ListView
+                            android:id="@+id/List_view"
+                            android:drawSelectorOnTop="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@null"
+                            android:dividerHeight="0dp"
+                            android:visibility="gone">
+
+                        </ListView>
+                        <TextView
+                            android:id="@+id/notice"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="확인할 일정이 없습니다.\n새로운 일정을 추가해주세요"
+                            android:visibility="visible"
+                            android:paddingTop="100dp"
+                            android:textAlignment="center"
+                            android:textSize="20dp"/>
+
+                        <Button
+                            android:id="@+id/showLocationBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|bottom"
+                            android:text="위치 보기"
+                            android:background="@drawable/button_style"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            android:layout_marginBottom="10dp"/>
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <!-- 세 번째 페이지. content3 -->
+                <LinearLayout
+                    android:id="@+id/content3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TableRow android:paddingTop="70dp">
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn1"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="기본 회화"
+                                    android:drawableBottom="@drawable/chat"
+                                    android:background="#00ff0000"/>
+
+                                <Spinner
+                                    android:id="@+id/spinner1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="invisible">
+                                </Spinner>
+                            </LinearLayout>
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn2"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="식당"
+                                    android:drawableBottom="@drawable/restaurant"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000" />
+                                <Spinner
+                                    android:id="@+id/spinner2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                            <Button android:id="@+id/imgBtn3"
+                                android:layout_height="match_parent"
+                                android:layout_width="match_parent"
+                                android:text="공항/비행기"
+                                android:drawableBottom="@drawable/airplane"
+                                android:layout_weight="1"
+                                android:background="#00ff0000" />
+                            <Spinner
+                                android:id="@+id/spinner3"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:visibility="gone">
+                            </Spinner>
+                        </LinearLayout>
+                        </TableRow>
+                        <TableRow android:paddingTop="70dp">
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn4"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="교통"
+                                    android:drawableBottom="@drawable/metro"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000" />
+                                <Spinner
+                                    android:id="@+id/spinner4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn5"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="쇼핑"
+                                    android:drawableBottom="@drawable/shopping"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000" />
+                                <Spinner
+                                    android:id="@+id/spinner5"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn6"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="숙박시설"
+                                    android:drawableBottom="@drawable/bed"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000" />
+                                <Spinner
+                                    android:id="@+id/spinner6"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                        </TableRow>
+                        <TableRow android:paddingTop="70dp">
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn7"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:src="@drawable/alarm"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000"
+                                    android:text="긴급 상황"
+                                    android:drawableBottom="@drawable/alarm"/>
+                                <Spinner
+                                    android:id="@+id/spinner7"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn8"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="길묻기"
+                                    android:drawableBottom="@drawable/work"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000" />
+                                <Spinner
+                                    android:id="@+id/spinner8"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                            <LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical"  android:layout_weight="1">
+                                <Button android:id="@+id/imgBtn9"
+                                    android:layout_height="match_parent"
+                                    android:layout_width="match_parent"
+                                    android:text="병원/약국"
+                                    android:drawableBottom="@drawable/medical"
+                                    android:layout_weight="1"
+                                    android:background="#00ff0000" />
+                                <Spinner
+                                    android:id="@+id/spinner9"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:visibility="gone">
+                                </Spinner>
+                            </LinearLayout>
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+            </FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/shadow"></View>
+            <!-- TabWidget의 id값이 반드시 "tabs"로 지정되어야 함. -->
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="2dp"/>
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>

@@ -1,0 +1,40 @@
+*{margin:0;padding:0;list-style: none;border:0;outline:0}
+html, body {height: 100%;margin: 0;padding: 0;}
+img{width:100%;height:100%}
+.article{height: 100%;width:100%;}
+.article #map{height: 100%;width:100%;z-index:1;float:left}
+.article #tree{height: 100%;width:250px;z-index:2;position:absolute;float:right;overflow: hidden;background-color:#FFFFFF}
+.article #tree #mkTimeLine{width:100%;background-color:#58ACFA;height:50px}
+.article #tree #mkTimeLine > div{width:50%;float:left;color:#FFFFFF;font-weight:bold;padding-top:12px;padding-left:5px;font-size:18px}
+.article #tree #mkTimeLine > #add{display:block}
+.article #tree #mkTimeLine > #cancel{display:none;}
+.article #tree #mkTimeLine > a{border: none;float:right;width:40px;height:40px;margin-right:10px;margin-top:5px;}
+.article #tree #mkTimeLine > #plusbtn{display:block}
+.article #tree #mkTimeLine > #backbtn{display:none;}
+.article #tree #timeLine,.article #tree #addInfo{width:99%;height:100%;padding-top:20px; overflow-y:auto;border:1px solid #313131;float:left;display: block}
+.article #tree #timeLine > ul{width:100%;list-style:none;}
+.article #tree #timeLine > ul #planDate{background-color: #58ACFA;font-weight: bold;color:#FFFFFF}
+.article #tree #timeLine > ul .obj{background-color: #FFFFFF}
+.article #tree #timeLine > ul > li {width:100%;height:55px;padding-left:10px;}
+.article #tree #timeLine > ul > li #Object_img{width:20px;height:100%;float:left}
+.article #tree #timeLine > ul > li #Object_img img{background-color: #FFFFFF}
+.article #tree #timeLine > ul > li #Object_info{padding-left:30px;padding-top:8px;font-weight: bold}
+.article #tree #timeLine > ul > li #Object_time{padding-left:30px;padding-top:0px;}
+.article #tree #timeLine > ul > li .modDel{display:none;position:absolute;left:205px;padding-top:5px;}
+.article #tree #timeLine > ul > li .modDel > button, .modDel input[type='submit']{background-color:#58ACFA;color:#FFFFFF;width:40px;font-weight: bold;}
+.article #tree #timeLine > ul > li .modDel > p{height:3px;}
+.article #tree #addInfo{display: none}
+.article #tree #addInfo form{width:230px;padding: 10px;}
+.article #tree #addInfo form #okbtn{margin-left:35%;width:25%;text-decoration:none;background-color:#58ACFA; }
+.article #tree #addInfo form #okbtn input[type=submit]{text-decoration: none;padding-left:13px;color:#ffffff;background-color:#58ACFA;}
+.article #tree #addInfo form > ul{width:100%;list-style:none;margin-bottom:80px;font-weight: bold;}
+.article #tree #addInfo form > ul li{margin-top:20px;}
+.article #tree #addInfo form > ul li #qus:hover #balloon {display:block}
+.article #tree #addInfo form > ul li #balloon {display: none;position: absolute;background: #ccc;height: 50px;width: 120px;margin: 0 auto 10px;left: 113px;top: 480px;animation-duration: 2s;animation-name: hello;font-size: 12px;}
+.article #tree #addInfo form > ul li #balloon:after{content: '';position: absolute;border-bottom: 10px solid #ccc;border-right: 5px solid transparent;border-left: 5px solid transparent;bottom: 49px;left: 102px;}
+.article #tree #addInfo form > ul > li input{border: 1px solid #000000}
+.article #tree #addInfo form > ul > li > a{border: none;float:right;width:20px;height:20px;margin-right:10px;margin-top:5px;}
+#search{z-index:2;position:absolute;left:270px;top:60px;}
+#search label > img{width:30px;}
+#search #locationTextField{position:absolute;left:45px;top:0px;font-size: 15px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);height: 30px;}
+#getRoute{z-index:2;position:absolute;left:260px;top:10px;}

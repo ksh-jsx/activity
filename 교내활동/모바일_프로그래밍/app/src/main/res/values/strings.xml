@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">mp</string>
+    <string name="title_activity_google">Map</string>
+    <string name="title_activity_google_map">Map</string>
+    <string name="title_activity_aass">Map</string>
+
+</resources>

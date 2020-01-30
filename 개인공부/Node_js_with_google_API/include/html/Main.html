@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <style>
+    .ui-datepicker{ font-size: 5px; width: 165px; }
+    .ui-datepicker table{width:100%;}
+    
+  </style>
+	<script src="https://maps.googleapis.com/maps/api/js?"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCMby8FkLkR-W_THN2plzHj4QkIxEGWvhM&callback=initMap&sensor=false&libraries=places" async defer></script>
+  <script type="text/javascript" src="../js/google.js"></script>
+  <script type="text/javascript" src="../js/main.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </head>
+  <body>
+    <div class="article">
+      <div id="map"></div>
+      <div id="tree">
+        <div id="mkTimeLine">
+          <div>일정 추가하기</div>
+          <a id="plusbtn" onclick="mkPlan()"><img src="../images/plus.png"></a>
+        </div>
+        <div id="timeLine">
+          <ul>
+            ${}
+          </ul>
+        </div>
+        <div id="addInfo">
+          <form action="/insert_process" method="post">
+            <ul>
+              <li>
+                <span>장소명</span>
+                <input type="text" name="placeName" maxlength="20" id="placeName" autocomplete="off">
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <span>날짜&nbsp;&nbsp;&nbsp;</span>
+                <input type="text" id="datepicker" name ="Date" autocomplete="off">
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <span>도착 시간</span>
+                <select name="hour" id="hour">
+                </select>:
+                <select name="minute" id="minute">
+                </select>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <span>위치 지정</span>
+                <input type="text" name="lat" id="Lat" readonly>
+                <input type="text" name="lng" id="Lng"readonly>
+                <a id="qus"><img src="../images/info.png">
+                  <div id="balloon">우측 지도에서 원하는 위치에 마커를 찍으세요</div>
+                </a>
+              </li>
+            </ul>
+            <div id="okbtn">
+                <input type="submit">
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div id="search">
+		<label for="locationTextField">Location</label>
+    <input id="locationTextField" type="text" size="50">
+	</div>
+  <script>
+    $('#datepicker').datepicker({
+        altField : '#getdate',
+        dateFormat : 'yy년 mm월 dd일',
+        maxDate : 365,
+        minDate : -365
+    });
+    
+
+    var select1 = '';
+    for (i=0;i<=23;i++)
+    {
+      select1 += '<option val=' + i + '>' + i + '</option>';
+    }
+    $('#hour').html(select1);
+
+    var select2 = '';
+    for (i=0;i<=60;i++)
+    {
+      select2 += '<option val=' + i + '>' + i + '</option>';
+    }
+    $('#minute').html(select2);
+    </script>
+  </body>
+</html>
