@@ -11,6 +11,10 @@ import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 
+function sleep(ms) { //sleep 함수
+  return new Promise(resolve=>setTimeout(resolve, ms));
+}
+
 const styles = theme =>({
   root: {
     width: "100%",
@@ -44,6 +48,7 @@ class App extends Component {
   }
   
   callApi = async () => {
+    await sleep(1000)
     const response = await fetch('/api/customers');
     const body = await response.json();
   return body;
