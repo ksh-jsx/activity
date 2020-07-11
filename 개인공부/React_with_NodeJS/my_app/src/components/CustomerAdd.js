@@ -7,11 +7,22 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
     hidden: {
         display: 'none'
-    }  
+    },
+    formControl: {
+        marginTop: theme.spacing(1),
+        minWidth: 120,
+      },
+    selectEmpty: {
+    marginTop: theme.spacing(2),
+    },  
 });
 
 class CustomerAdd extends React.Component {
@@ -98,9 +109,11 @@ class CustomerAdd extends React.Component {
             open: false
         })
     }
-        
+ 
+
     render() {
         const { classes } = this.props;
+        
         return (
             <div>
                 <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
@@ -118,7 +131,13 @@ class CustomerAdd extends React.Component {
                             <br/>
                             <TextField label="이름" type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange} /><br/>
                             <TextField label="생년월일" type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange} /><br/>
-                            <TextField label="성별" type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange} /><br/>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel htmlFor="age-native-simple">성별</InputLabel>
+                                <Select labelId="demo-simple-select-label"id="demo-simple-select" label="성별" name="gender" value={this.state.gender} onChange={this.handleValueChange}>
+                                    <MenuItem value={'남'}>남</MenuItem>
+                                    <MenuItem value={'여'}>여</MenuItem>
+                                </Select>
+                            </FormControl><br/>
                             <TextField label="직업" type="text" name="job" value={this.state.job} onChange={this.handleValueChange} /><br/>
                         </DialogContent>
                     <DialogActions>
