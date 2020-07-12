@@ -12,7 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-
+import Navigation from './NavigationBar';
 import $ from 'jquery';
 window.$ = $;
 
@@ -139,7 +139,7 @@ class Customer extends React.Component {
     
     callApi = async () => {
         await sleep(1000)
-        const response = await fetch('/api/customers');
+        const response = await fetch('/api/customers');        
         const body = await response.json();
         return body;
     }
@@ -162,7 +162,8 @@ class Customer extends React.Component {
           }
         return (
             <div>
-            <div className={classes.menu}>
+              <Navigation/>
+              <div className={classes.menu}>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
                     <SearchIcon />

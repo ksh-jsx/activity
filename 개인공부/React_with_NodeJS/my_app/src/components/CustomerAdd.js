@@ -1,12 +1,12 @@
 import React from 'react'
 import { post } from 'axios';
+import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
@@ -121,25 +121,25 @@ class CustomerAdd extends React.Component {
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>직원 추가</DialogTitle>
-                        <DialogContent>
-                            <input className={classes.hidden} accept="image/*" id="raised-button-file" type="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange} />
-                            <label htmlFor="raised-button-file">
-                                <Button variant="contained" color="primary" component="span" name="file">
-                                    {this.state.fileName === ''? "프로필 이미지 선택" : this.state.fileName}
-                                </Button>
-                            </label>
-                            <br/>
-                            <TextField label="이름" type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange} /><br/>
-                            <TextField label="생년월일" type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange} /><br/>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel htmlFor="age-native-simple">성별</InputLabel>
-                                <Select labelId="demo-simple-select-label"id="demo-simple-select" label="성별" name="gender" value={this.state.gender} onChange={this.handleValueChange}>
-                                    <MenuItem value={'남'}>남</MenuItem>
-                                    <MenuItem value={'여'}>여</MenuItem>
-                                </Select>
-                            </FormControl><br/>
-                            <TextField label="직업" type="text" name="job" value={this.state.job} onChange={this.handleValueChange} /><br/>
-                        </DialogContent>
+                    <DialogContent>
+                        <input className={classes.hidden} accept="image/*" id="raised-button-file" type="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange} />
+                        <label htmlFor="raised-button-file">
+                            <Button variant="contained" color="primary" component="span" name="file">
+                                {this.state.fileName === ''? "프로필 이미지 선택" : this.state.fileName}
+                            </Button>
+                        </label>
+                        <br/>
+                        <TextField label="이름" type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange} /><br/>
+                        <TextField label="생년월일" type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange} /><br/>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="age-native-simple">성별</InputLabel>
+                            <Select labelId="demo-simple-select-label"id="demo-simple-select" label="성별" name="gender" value={this.state.gender} onChange={this.handleValueChange}>
+                                <MenuItem value={'남'}>남</MenuItem>
+                                <MenuItem value={'여'}>여</MenuItem>
+                            </Select>
+                        </FormControl><br/>
+                        <TextField label="직업" type="text" name="job" value={this.state.job} onChange={this.handleValueChange} /><br/>
+                    </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>추가</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>

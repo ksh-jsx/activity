@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route, Redirect,Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -60,14 +61,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  icon_wrap: {
+  icon_wrap1: {
     position:"absolute",
     right:30,
     width:50
   },
-  icon: {
-    
-  }
+  icon_wrap2: {
+    position:"absolute",
+    right:100,
+    width:50,
+    color:'#ffffff',
+    textDecoration:'none'
+  },
 }));
 
 function NavigationBar(props) {
@@ -76,8 +81,14 @@ function NavigationBar(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    fetch('/logout'); 
   };
 
   const drawer = (
@@ -123,9 +134,12 @@ function NavigationBar(props) {
         <Typography variant="h6" noWrap>
           직원 관리 시스템
         </Typography>
-        <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit" className={classes.icon_wrap}>
-          <AccountCircle className={classes.icon}/>
+        <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit" className={classes.icon_wrap1}>
+          <AccountCircle  />
         </IconButton>
+        <Link to="/login" className={classes.icon_wrap2}>
+          <Button color="inherit"  onClick={handleLogout}>LOGOUT</Button>
+        </Link>
       </Toolbar>
     </AppBar>
     <nav className={classes.drawer} aria-label="mailbox folders">

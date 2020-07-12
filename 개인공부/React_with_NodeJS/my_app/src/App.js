@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Customer from './components/Customers';
-import NavigationBar from './components/NavigationBar';
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 
+import { auth } from './auth/auth';
+import SignIn from './auth/SignIn';
+import Home from './components/Customers';
 
 
 import $ from 'jquery';
@@ -24,19 +27,53 @@ const styles = theme =>({
 
 });
 
-class App extends Component {
+
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      session_data:"",
+      
+    }
+    this.callSession = this.callSession.bind(this);
+  }
+
+  callSession = async() => {
+    
+    const response = await fetch('get_session');        
+    const body = await response.json();
+    console.log('body data : '+body)
+    return body;
+  }
   
+  componentDidMount(){
     
+    this.callSession()
+        .then(res => this.setState({session_data: res}))
+        .catch(err => console.log(err));
+    
+  }
+  
   render() {
-    const { classes } = this.props;
-    
     return (
-      <div className={classes.root}>
-        <NavigationBar/>
-        <Customer/>
-      </div>
+      <Router>      
+        <main>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={SignIn} />
+          </Switch>
+          {this.state.session_data.logined ? (
+              <Redirect to='/'/>
+            ) : (
+              <Redirect to='/login'/>
+            )}
+        </main>
+      </Router>
+      
     );
   }
 }
+
 
 export default withStyles(styles)(App);
