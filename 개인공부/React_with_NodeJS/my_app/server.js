@@ -45,7 +45,19 @@ app.get('/get_session', (req, res) => {
                 
 });
 
-app.get('/api/customers', (req, res) => {
+app.get('/api/profile', (req, res) => {
+    let sql = 'SELECT * FROM CUSTOMER WHERE id = ?';
+    let params = [req.session.user_id.replace('admin','')];
+    
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            console.log(rows)
+            res.send(rows);
+        }
+    )
+});
+
+app.get('/api/admins', (req, res) => {
     connection.query(
         'SELECT * FROM CUSTOMER WHERE isDeleted = 0',   
         (err, rows, fields) => {    
@@ -56,7 +68,7 @@ app.get('/api/customers', (req, res) => {
     
 app.use('/image',express.static('./upload'));
 
-app.post('/api/customers',upload.single('image'),(req,res) =>{
+app.post('/api/admins',upload.single('image'),(req,res) =>{
     console.log(req.body)
     let sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?, now(), 0, ?)';
     let image =''
@@ -79,7 +91,7 @@ app.post('/api/customers',upload.single('image'),(req,res) =>{
     )
 });
 
-app.delete('/api/customers/:id', (req, res) => {
+app.delete('/api/admins/:id', (req, res) => {
     let sql = 'UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?';
     let params = [req.params.id];
     connection.query(sql, params,
@@ -88,6 +100,7 @@ app.delete('/api/customers/:id', (req, res) => {
         }
     )
 });
+
 
 app.post('/auth/login',upload.single('image'),(req,res) =>{
     let body = req.body;

@@ -7,15 +7,16 @@ import { Redirect } from 'react-router-dom';
 
 import { auth } from './auth/auth';
 import SignIn from './auth/SignIn';
-import Home from './components/Customers';
+import Home from './components/Admins';
+import Posts from './components/Posts';
+import Journal from './components/Journal';
+import Attendance from './components/Attendance';
+import profile from './components/Profile';
 
 
 import $ from 'jquery';
 window.$ = $;
 
-function sleep(ms) { //sleep 함수
-  return new Promise(resolve=>setTimeout(resolve, ms));
-}
 
 const styles = theme =>({
   
@@ -40,7 +41,6 @@ class App extends React.Component {
   }
 
   callSession = async() => {
-    
     const response = await fetch('get_session');        
     const body = await response.json();
     console.log('body data : '+body)
@@ -48,11 +48,9 @@ class App extends React.Component {
   }
   
   componentDidMount(){
-    
     this.callSession()
         .then(res => this.setState({session_data: res}))
         .catch(err => console.log(err));
-    
   }
   
   render() {
@@ -62,6 +60,10 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={SignIn} />
+            <Route exact path="/posts" component={Posts} />
+            <Route exact path="/journal" component={Journal} />
+            <Route exact path="/attendance" component={Attendance} />
+            <Route exact path="/profile" component={profile} />
           </Switch>
           {this.state.session_data.logined ? (
               <Redirect to='/'/>

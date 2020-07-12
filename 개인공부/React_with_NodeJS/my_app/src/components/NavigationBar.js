@@ -73,6 +73,20 @@ const useStyles = makeStyles((theme) => ({
     color:'#ffffff',
     textDecoration:'none'
   },
+  txt_deco_none:{
+    color:'#000000',
+    textDecoration:'none'
+  },
+  clicked_item:{    
+    textDecoration:'none',
+    backgroundColor:'#bdbdbd',
+    color:'#ffffff'
+  },
+  unclicked_item:{    
+    textDecoration:'none',
+    backgroundColor:'#ffffff',
+    color:'#000000'
+  }
 }));
 
 function NavigationBar(props) {
@@ -80,7 +94,8 @@ function NavigationBar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  
+  //console.log(props.current_link)
   
 
   const handleDrawerToggle = () => {
@@ -90,27 +105,48 @@ function NavigationBar(props) {
   const handleLogout = () => {
     fetch('/logout'); 
   };
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
-        {['직원 관리', '글 관리'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <PeopleIcon /> : <LibraryBooksOutlinedIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+        <List>
+          <Link to="/" className={classes.txt_deco_none}>
+            <ListItem button key='직원 관리' className={props.current_link == '/' ? classes.clicked_item : classes.unclicked_item }>
+              <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+              <ListItemText primary='직원 관리' />
+            </ListItem>
+          </Link>
+
+          <Link to="/posts" className={classes.txt_deco_none}>
+            <ListItem button key='글 관리' className={props.current_link == '/posts' ? classes.clicked_item : classes.unclicked_item }>
+              <ListItemIcon>
+                  <LibraryBooksOutlinedIcon />
+                </ListItemIcon>
+              <ListItemText primary='글 관리' />
+            </ListItem>
+          </Link>
+        </List>
       <Divider />
       <List>
-        {['업무일지 작성', '출결 관리'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <CreateIcon /> : <LocationOnOutlinedIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+        <Link to="/journal" className={classes.txt_deco_none}>
+          <ListItem button key='업무일지 작성' className={props.current_link == '/journal' ? classes.clicked_item : classes.unclicked_item }>
+            <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+            <ListItemText primary='업무일지 작성' />
           </ListItem>
-        ))}
+        </Link>
+
+        <Link to="/attendance" className={classes.txt_deco_none}>
+          <ListItem button key='출결 관리' className={props.current_link == '/attendence' ? classes.clicked_item : classes.unclicked_item }>
+            <ListItemIcon>
+                <LibraryBooksOutlinedIcon />
+              </ListItemIcon>
+            <ListItemText primary='출결 관리' />
+          </ListItem>
+        </Link>
       </List>
     </div>
   );
@@ -135,7 +171,9 @@ function NavigationBar(props) {
           직원 관리 시스템
         </Typography>
         <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit" className={classes.icon_wrap1}>
-          <AccountCircle  />
+          <Link to="/profile" className={classes.txt_deco_none}>
+            <AccountCircle  />
+          </Link>
         </IconButton>
         <Link to="/login" className={classes.icon_wrap2}>
           <Button color="inherit"  onClick={handleLogout}>LOGOUT</Button>

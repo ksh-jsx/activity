@@ -13,6 +13,7 @@ import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Navigation from './NavigationBar';
+
 import $ from 'jquery';
 window.$ = $;
 
@@ -47,6 +48,9 @@ const styles = theme =>({
       },
       table: {
         minWidth: 1080
+      },
+      tableRow: {
+        height: 150
       },
       progress: {
         margin: theme.spacing.unit * 2
@@ -97,7 +101,7 @@ const styles = theme =>({
       }
 });
 
-class Customer extends React.Component {
+class Admins extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -138,10 +142,10 @@ class Customer extends React.Component {
     }
     
     callApi = async () => {
-        await sleep(1000)
-        const response = await fetch('/api/customers');        
-        const body = await response.json();
-        return body;
+      await sleep(500)
+      const response = await fetch('/api/admins');        
+      const body = await response.json();
+      return body;
     }
 
     progress = () => {
@@ -153,16 +157,16 @@ class Customer extends React.Component {
         const { classes } = this.props;
         const cellList = ["번호", "프로필 이미지", "이름", "생년월일", "성별", "직업", "설정"]
         const filteredComponents = (data) => {
-            data = data.filter((c) => {
-              return c.name.indexOf(this.state.searchKeyword) > -1;
-            });
-            return data.map((c) => {
-              return <CustomerList stateRefresh={this.stateRefresh} imgcss = {classes.img} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />
-            });
-          }
+          data = data.filter((c) => {
+            return c.name.indexOf(this.state.searchKeyword) > -1;
+          });
+          return data.map((c) => {
+            return <AdminList stateRefresh={this.stateRefresh} imgCss = {classes.img} rowCss= {classes.tableRow} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />
+          });
+        }
         return (
             <div>
-              <Navigation/>
+              <Navigation current_link="/"/>
               <div className={classes.menu}>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
@@ -210,13 +214,13 @@ class Customer extends React.Component {
     }
 }
     
-class CustomerList extends React.Component {
+class AdminList extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <TableRow>
+            <TableRow className={this.props.rowCss}>
                 <TableCell>{this.props.id}</TableCell>
-                <TableCell><img src={this.props.image} alt="profile"  className={this.props.imgcss}/></TableCell>
+                <TableCell><img src={this.props.image} alt="profile"  className={this.props.imgCss}/></TableCell>
                 <TableCell>{this.props.name}</TableCell>
                 <TableCell>{this.props.birthday}</TableCell>
                 <TableCell>{this.props.gender}</TableCell>
@@ -228,4 +232,4 @@ class CustomerList extends React.Component {
 }
       
 
-export default withStyles(styles)(Customer);
+export default withStyles(styles)(Admins);
