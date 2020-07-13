@@ -185,7 +185,7 @@ class Admins extends React.Component {
                     />
                 </div>
                 <CustomerAdd stateRefresh={this.stateRefresh} />
-            </div>
+              </div>
                 <Paper className={classes.paper}>
                     <Table>
                         <TableHead>

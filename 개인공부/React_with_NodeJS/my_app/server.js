@@ -101,7 +101,6 @@ app.delete('/api/admins/:id', (req, res) => {
     )
 });
 
-
 app.post('/auth/login',upload.single('image'),(req,res) =>{
     let body = req.body;
     let id = body.userId;
@@ -142,7 +141,7 @@ app.post('/auth/login',upload.single('image'),(req,res) =>{
     )    
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout' ,function(req, res){
     sess = req.session;
     req.session.destroy(function(err){
         if(err){
@@ -150,5 +149,36 @@ app.get('/logout', function(req, res){
         }
     })
 })
+
+app.get('/api/journal', (req, res) => {
+    connection.query(
+        'SELECT * FROM JOURNAL WHERE isDeleted = 0',   
+        (err, rows, fields) => {    
+            res.send(rows);    
+        }    
+    )
+});
+
+app.post('/api/journal',upload.single('image'),function(req,res) {
+    console.log(req.body)
+    
+    let sql = 'INSERT INTO JOURNAL VALUES (null, ?, ?, ?, ?,0)';
+    
+    let userId = req.session.user_id;
+    let title = req.body.title;
+    let date_arr = req.body.date.split(' ')
+    let date = date_arr[3]+'/'+date_arr[1]+'/'+date_arr[2];
+    let content = req.body.content;    
+    
+    let params = [userId, title, date, content];
+    console.log('something inserted!!')
+
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    )
+    
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

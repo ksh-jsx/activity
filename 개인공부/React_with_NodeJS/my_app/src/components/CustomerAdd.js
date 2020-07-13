@@ -60,7 +60,6 @@ class CustomerAdd extends React.Component {
             fileName: '',
             open:false
         })            
-        
     }
 
     handleFileChange(e) {

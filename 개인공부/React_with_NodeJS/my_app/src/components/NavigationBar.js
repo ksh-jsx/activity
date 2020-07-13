@@ -131,11 +131,11 @@ function NavigationBar(props) {
       <Divider />
       <List>
         <Link to="/journal" className={classes.txt_deco_none}>
-          <ListItem button key='업무일지 작성' className={props.current_link == '/journal' ? classes.clicked_item : classes.unclicked_item }>
+          <ListItem button key='업무일지 관리' className={props.current_link == '/journal' ? classes.clicked_item : classes.unclicked_item }>
             <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-            <ListItemText primary='업무일지 작성' />
+            <ListItemText primary='업무일지 관리' />
           </ListItem>
         </Link>
 

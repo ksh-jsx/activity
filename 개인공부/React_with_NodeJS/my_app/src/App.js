@@ -1,6 +1,6 @@
 import React, { Component,useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
@@ -66,7 +66,7 @@ class App extends React.Component {
             <Route exact path="/profile" component={profile} />
           </Switch>
           {this.state.session_data.logined ? (
-              <Redirect to='/'/>
+              <Redirect to='/profile'/>
             ) : (
               <Redirect to='/login'/>
             )}
