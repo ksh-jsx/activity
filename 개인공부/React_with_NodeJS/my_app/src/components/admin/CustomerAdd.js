@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
     hidden: {
@@ -116,7 +117,8 @@ class CustomerAdd extends React.Component {
         return (
             <div>
                 <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
-                직원 추가하기
+                    추가&nbsp;
+                    <AddIcon/>
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>직원 추가</DialogTitle>

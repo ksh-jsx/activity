@@ -77,6 +77,10 @@ const useStyles = makeStyles((theme) => ({
     color:'#000000',
     textDecoration:'none'
   },
+  txt_deco_none2:{
+    color:'#ffffff',
+    textDecoration:'none'
+  },
   clicked_item:{    
     textDecoration:'none',
     backgroundColor:'#bdbdbd',
@@ -168,10 +172,10 @@ function NavigationBar(props) {
             <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          직원 관리 시스템
+          Nsworks
         </Typography>
         <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit" className={classes.icon_wrap1}>
-          <Link to="/profile" className={classes.txt_deco_none}>
+          <Link to="/profile" className={classes.txt_deco_none2}>
             <AccountCircle  />
           </Link>
         </IconButton>

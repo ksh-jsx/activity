@@ -11,10 +11,12 @@ class CustomerDelete extends React.Component {
     constructor(props) {    
         super(props);
         this.state = {    
-            open: false    
+            open: false,
+            session_id:"",    
         }
         this.handleClickOpen = this.handleClickOpen.bind(this)    
         this.handleClose = this.handleClose.bind(this);
+        this.callSession = this.callSession.bind(this);
     }
 
     handleClickOpen() {    
@@ -28,6 +30,20 @@ class CustomerDelete extends React.Component {
             open: false
         })
     }
+
+    callSession = async() => {
+        const response = await fetch('get_session');        
+        const body = await response.json();
+        console.log('body data : '+body)
+        return body;
+    }
+      
+    componentDidMount(){
+        this.callSession()
+            .then(res => this.setState({session_id: res.user_id.replace('admin','')}))
+            .catch(err => console.log(err));
+        
+    }
     
     deleteCustomer(id){
         const url = '/api/admins/' + id;    
@@ -40,9 +56,13 @@ class CustomerDelete extends React.Component {
     render() {
         return (
             <div>
-                <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>
-                    삭제
-                </Button>
+                { this.state.session_id == this.props.id ? (
+                    <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>
+                        삭제
+                    </Button>   
+                ) : (
+                    <div></div>
+                )}
                 <Dialog onClose={this.handleClose} open={this.state.open}>
                     <DialogTitle onClose={this.handleClose}>
                         삭제 경고

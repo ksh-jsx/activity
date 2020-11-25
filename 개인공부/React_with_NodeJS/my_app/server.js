@@ -181,4 +181,33 @@ app.post('/api/journal',upload.single('image'),function(req,res) {
     
 });
 
+app.post('/api/journal/:id',upload.single('image'), (req, res) => {
+    let sql = 'UPDATE JOURNAL SET title = ?,createdDate = ?, content=? WHERE id = ?';
+    let title = req.body.title;
+    let date_arr = req.body.date.split(' ')
+    if(date_arr[3])
+        var date = date_arr[3]+'/'+date_arr[1]+'/'+date_arr[2];
+    else
+        var date = req.body.date
+    let content = req.body.content;    
+    console.log(title,date,content,req.params.id)
+    let params = [title,date,content,req.params.id];
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    )
+    
+});
+
+app.delete('/api/journal/:id', (req, res) => {
+    let sql = 'UPDATE JOURNAL SET isDeleted = 1 WHERE id = ?';
+    let params = [req.params.id];
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    )
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

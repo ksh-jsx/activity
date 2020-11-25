@@ -1,10 +1,8 @@
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import CustomerDelete from './CustomerDelete'
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import CustomerAdd from './CustomerAdd';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Table from '@material-ui/core/Table';
@@ -12,7 +10,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import Navigation from './NavigationBar';
+import Navigation from '../NavigationBar';
+import JournalAdd from './JournalAdd';
+import JournalUpdate from './JournalUpdate';
+import JournalDelete from './JournalDelete';
 
 import $ from 'jquery';
 window.$ = $;
@@ -56,7 +57,11 @@ const styles = theme =>({
         margin: theme.spacing.unit * 2
       },
       tableHead: {
-        fontSize: '1.0rem'
+        fontSize: '1.0rem',
+        textAlign:'center'
+      },
+      tableBody: {
+        textAlign:'center'
       },
       search: {
         position: 'relative',
@@ -156,13 +161,13 @@ class Journals extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const cellList = ["번호", "제목", "내용", "작성날짜", "설정"]
+        const cellList = ["제목", "날짜", "설정"]
         const filteredComponents = (data) => {
           data = data.filter((c) => {
             return c.title.indexOf(this.state.searchKeyword) > -1;
           });
-          return data.map((c) => {
-            return <JournalList stateRefresh={this.stateRefresh} rowCss= {classes.tableRow} key={c.id} id={c.id} title={c.title} content={c.content} date={c.createdDate} />
+          return data.reverse().map((c) => {
+            return <JournalList stateRefresh={this.stateRefresh} tableRow= {classes.tableRow} tableBody= {classes.tableBody} key={c.id} id={c.id} title={c.title} content={c.content} date={c.createdDate} />
           });
         }
         return (
@@ -174,7 +179,7 @@ class Journals extends React.Component {
                     <SearchIcon />
                     </div>
                     <InputBase
-                    placeholder="검색하기"
+                    placeholder="제목으로 검색"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -185,7 +190,7 @@ class Journals extends React.Component {
                     onChange={this.handleValueChange}
                     />
                 </div>
-                <CustomerAdd stateRefresh={this.stateRefresh} />
+                <JournalAdd stateRefresh={this.stateRefresh} />
               </div>
                 <Paper className={classes.paper}>
                     <Table>
@@ -219,12 +224,13 @@ class JournalList extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <TableRow className={this.props.rowCss}>
-                <TableCell>{this.props.id}</TableCell>                
-                <TableCell>{this.props.title}</TableCell>
-                <TableCell>{this.props.content}</TableCell>
-                <TableCell>{this.props.date}</TableCell>
-                <TableCell><CustomerDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
+            <TableRow className={this.props.tableRow}>
+                <TableCell className={this.props.tableBody}>{this.props.title}</TableCell>
+                <TableCell className={this.props.tableBody}>{this.props.date}</TableCell>
+                <TableCell className={this.props.tableBody}>
+                  <JournalUpdate stateRefresh={this.props.stateRefresh} id={this.props.id} title={this.props.title} content={this.props.content} date={this.props.date}/>
+                  <JournalDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/>
+                </TableCell>
             </TableRow>
         )
     }

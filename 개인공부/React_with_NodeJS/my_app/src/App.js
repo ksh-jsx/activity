@@ -7,9 +7,9 @@ import { Redirect } from 'react-router-dom';
 
 import { auth } from './auth/auth';
 import SignIn from './auth/SignIn';
-import Home from './components/Admins';
+import Home from './components/admin/Admins';
 import Posts from './components/Posts';
-import Journal from './components/Journal';
+import Journal from './components/journal/Journals';
 import Attendance from './components/Attendance';
 import profile from './components/Profile';
 
@@ -27,8 +27,6 @@ const styles = theme =>({
   },
 
 });
-
-
 
 class App extends React.Component {
   constructor(props){
@@ -56,7 +54,6 @@ class App extends React.Component {
   render() {
     return (
       <Router>      
-        <main>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={SignIn} />
@@ -66,13 +63,11 @@ class App extends React.Component {
             <Route exact path="/profile" component={profile} />
           </Switch>
           {this.state.session_data.logined ? (
-              <Redirect to='/profile'/>
+              <Redirect to='/'/>
             ) : (
               <Redirect to='/login'/>
             )}
-        </main>
-      </Router>
-      
+      </Router>      
     );
   }
 }

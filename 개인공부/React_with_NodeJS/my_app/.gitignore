@@ -8,6 +8,9 @@
 #upload
 /upload
 
+#session
+/session
+
 # testing
 /coverage
 

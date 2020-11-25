@@ -12,7 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import Navigation from './NavigationBar';
+import Navigation from '../NavigationBar';
 
 import $ from 'jquery';
 window.$ = $;
@@ -56,12 +56,16 @@ const styles = theme =>({
         margin: theme.spacing.unit * 2
       },
       tableHead: {
-        fontSize: '1.0rem'
+        fontSize: '1.0rem',
+        textAlign:'center'
+      },
+      tableBody: {
+        textAlign:'center'
       },
       search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
+        backgroundColor: fade(theme.palette.common.white, 1),
         '&:hover': {
           backgroundColor: fade(theme.palette.common.white, 0.25),
         },
@@ -155,13 +159,13 @@ class Admins extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const cellList = ["번호", "프로필 이미지", "이름", "생년월일", "성별", "직업", "설정"]
+        const cellList = ["번호", "프로필 이미지", "이름", "설정"]
         const filteredComponents = (data) => {
           data = data.filter((c) => {
             return c.name.indexOf(this.state.searchKeyword) > -1;
           });
           return data.map((c) => {
-            return <AdminList stateRefresh={this.stateRefresh} imgCss = {classes.img} rowCss= {classes.tableRow} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />
+            return <AdminList stateRefresh={this.stateRefresh} img = {classes.img} tableRow= {classes.tableRow} tableBody= {classes.tableBody} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />
           });
         }
         return (
@@ -173,7 +177,7 @@ class Admins extends React.Component {
                     <SearchIcon />
                     </div>
                     <InputBase
-                    placeholder="검색하기"
+                    placeholder="이름으로 검색"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -218,14 +222,11 @@ class AdminList extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <TableRow className={this.props.rowCss}>
-                <TableCell>{this.props.id}</TableCell>
-                <TableCell><img src={this.props.image} alt="profile"  className={this.props.imgCss}/></TableCell>
-                <TableCell>{this.props.name}</TableCell>
-                <TableCell>{this.props.birthday}</TableCell>
-                <TableCell>{this.props.gender}</TableCell>
-                <TableCell>{this.props.job}</TableCell>
-                <TableCell><CustomerDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
+            <TableRow className={this.props.tableRow}>
+                <TableCell className={this.props.tableBody}>{this.props.id}</TableCell>
+                <TableCell className={this.props.tableBody}><img src={this.props.image} alt="profile"  className={this.props.img}/></TableCell>
+                <TableCell className={this.props.tableBody}>{this.props.name}</TableCell>
+                <TableCell className={this.props.tableBody}><CustomerDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
             </TableRow>
         )
     }
