@@ -1,24 +1,24 @@
-def is_prime(a):
-if a<2 : return False
-for i in range(2,a):
-if a%i == 0:
-return False
-return True
+r= 1000000
 
-while 1:
+check = [True for _ in range(r)]
 
-```
-num= int(input())
-if num == 0: break
-elif num < 4 or num%2 == 1:
-    print("Goldbach's conjecture is wrong.")
-else:
-    prime_list = []
-    for i in range(2,num+1):
-        if is_prime(i) : prime_list.append(i)
+for i in range(2,int(r**0.6)):
+    if check[i]==True:
+        for j in range(i*2, r, i) : 
+            if check[j] == True :
+                check[j] = False            #에라토스테네스의 체
 
-    for i in prime_list:
-        if num-i in prime_list:
-            print('%d = %d + %d' % (num, i, num-i))
-            break
-```
+
+import sys
+input = sys.stdin.readline
+
+
+while(True):                               #입력받은 수가 에라토스테네스의 체에 속하는지, 즉 소수인지
+    n = int(input())
+
+    if n==0 : break
+    for i in range(3,r):
+        if check[i] == True:
+            if check[n-i] == True :
+                print("%d = %d + %d"%(n , i , n-i))
+                break
