@@ -1,24 +1,22 @@
-r= 1000000
+lotto = [0] * 7
 
-check = [True for _ in range(r)]
+def go(idx, start, n, m):
+    if idx == 7:
+        tmp = 0
+        for i in lotto:
+            tmp+=i
+        if tmp == 100:
+            lotto.sort()
+            for i in lotto:
+                print(i)
+        return
 
-for i in range(2,int(r**0.6)):
-    if check[i]==True:
-        for j in range(i*2, r, i) : 
-            if check[j] == True :
-                check[j] = False            #에라토스테네스의 체
+    for i in range(start, len(n)):
+        lotto[idx] = n[i]
+        go(idx + 1, i + 1, n, m)
+    
+arr = []
+for _ in range(9):
+    arr.append(int(input()))
 
-
-import sys
-input = sys.stdin.readline
-
-
-while(True):                               #입력받은 수가 에라토스테네스의 체에 속하는지, 즉 소수인지
-    n = int(input())
-
-    if n==0 : break
-    for i in range(3,r):
-        if check[i] == True:
-            if check[n-i] == True :
-                print("%d = %d + %d"%(n , i , n-i))
-                break
+go(0, 0, arr, 9)
