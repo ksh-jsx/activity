@@ -37,18 +37,33 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
+  const CheckEmail = (str) => {                   
+     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+     if(!reg_email.test(str)) {                            
+          return false;         
+     }                            
+     else {                       
+          return true;         
+     }                            
+  }             
   const onSubmit = async (event) => {
     event.preventDefault();
-    try {
-      let data = await authService.createUserWithEmailAndPassword(
-        values.email,
-        values.password
-      );
-      console.log(data);
-    } catch (error) {
-      setError(error.message);
-      alert(error)
+    if(CheckEmail(values.email)){
+      if(values.password == values.password2){
+        try {
+          let data = await authService.createUserWithEmailAndPassword(
+            values.email,
+            values.password
+          );
+          console.log(data);
+        } catch (error) {
+          setError(error.message);
+          alert(error)
+        }
+      }
+      else{ alert('비밀번호를 확인해주세요') }
     }
+    else{ alert('이메일 형식이 아닙니다') }
   };
   
   return (
@@ -56,7 +71,7 @@ const SignUpForm = () => {
       <form onSubmit={onSubmit} className="signUpForm">
           <TextField
             name="email"
-            label="이메일"
+            label="이메일"            
             variant="outlined"
             required
             value={values.email}
@@ -70,6 +85,7 @@ const SignUpForm = () => {
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange('password')}
+              required
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -92,6 +108,7 @@ const SignUpForm = () => {
               type={values.showPassword ? 'text' : 'password'}
               value={values.password2}
               onChange={handleChange('password2')}
+              required
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -124,6 +141,7 @@ const SignUpForm = () => {
             placeholder="생년월일"
             required
             value={values.birthday}
+            autoComplete="off"
             onChange={handleChange("birthday")}
           />
         <input
