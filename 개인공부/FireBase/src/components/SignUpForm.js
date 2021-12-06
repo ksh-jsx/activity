@@ -1,73 +1,137 @@
 import React, { useState } from "react";
 import { authService } from "fbase";
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const SignInForm = () => {
+const SignUpForm = () => {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [newAccount, setNewAccount] = useState(true);
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+    password2: '',
+    name: '',
+    birthday: '',
+    showPassword: false,
+  });
   const [error, setError] = useState("");
 
-  const onChange = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "email") {
-      setEmail(value);
-    } else if (name === "password") {
-      setPassword(value);
-    }
-  };
   
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      let data;
-      if (newAccount) {
-        data = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-      } else {
-        data = await authService.signInWithEmailAndPassword(email, password);
-      }
+      let data = await authService.createUserWithEmailAndPassword(
+        values.email,
+        values.password
+      );
       console.log(data);
     } catch (error) {
       setError(error.message);
       alert(error)
     }
   };
-
-  //const toggleAccount = () => setNewAccount((prev) => !prev); 값 교환
   
   return (
     <div>
       <form onSubmit={onSubmit} className="signUpForm">
-        <div>
-          <input
+          <TextField
             name="email"
-            type="email"
-            placeholder="이메일"
+            label="이메일"
+            variant="outlined"
             required
-            value={email}
-            onChange={onChange}
+            value={values.email}
+            onChange={handleChange('email')}
+            autoComplete="off"
           />
-          <input
-            name="password"
-            type="password"
-            placeholder="비밀번호"
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">비밀번호</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="비밀번호"
+            />
+          </FormControl>
+          <FormControl variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password2}
+              onChange={handleChange('password2')}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="비밀번호 확인"
+            />
+          </FormControl>
+          <TextField
+            name="name"
+            type="text"
+            variant="outlined"
+            placeholder="이름"
             required
-            value={password}
-            onChange={onChange}
+            value={values.name}
+            autoComplete="off"
+            onChange={handleChange("name")}
           />
-        </div>
+          <TextField
+            name="birthday"
+            type=""
+            variant="outlined"
+            placeholder="생년월일"
+            required
+            value={values.birthday}
+            onChange={handleChange("birthday")}
+          />
         <input
           type="submit"
           value={"회원가입"}
         />
-        
       </form>
     </div>
   );
 };
-export default SignInForm;
+export default SignUpForm;
