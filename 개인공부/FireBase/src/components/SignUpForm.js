@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { authService } from "fbase";
 
-const AuthForm = () => {
+const SignInForm = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
   const [error, setError] = useState("");
+
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -16,6 +18,7 @@ const AuthForm = () => {
       setPassword(value);
     }
   };
+  
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -34,38 +37,37 @@ const AuthForm = () => {
       alert(error)
     }
   };
-  const toggleAccount = () => setNewAccount((prev) => !prev);
+
+  //const toggleAccount = () => setNewAccount((prev) => !prev); 값 교환
+  
   return (
     <div>
-      <form onSubmit={onSubmit} className="authForm">
+      <form onSubmit={onSubmit} className="signUpForm">
         <div>
-            <input
+          <input
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="이메일"
             required
             value={email}
             onChange={onChange}
-            />
-            <input
+          />
+          <input
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             required
             value={password}
             onChange={onChange}
-            />
+          />
         </div>
         <input
           type="submit"
-          value={newAccount ? "계정 생성" : "로그인"}
+          value={"회원가입"}
         />
         
       </form>
-      <div onClick={toggleAccount} className="authSpan">
-        {newAccount ? "로그인" : "계정 생성"}
-      </div>
     </div>
   );
 };
-export default AuthForm;
+export default SignInForm;

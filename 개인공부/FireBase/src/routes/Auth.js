@@ -1,6 +1,6 @@
 import React from "react";
 import { authService, firebaseInstance } from "fbase";
-import AuthForm from "components/AuthForm";
+import SignInForm from "components/SignInForm";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,7 +29,8 @@ const Auth=() => {
         style={{ marginBottom: 30 }}
         className="logo"
       />
-      <AuthForm/>
+      <SignInForm/>
+      <div onClick={console.log('hi')} className="authSpan">회원가입</div>
       <div className="socialWrap">
         <button onClick={onSocialClick} name="google">Continue with <FontAwesomeIcon icon={faGoogle} /></button>
         <button onClick={onSocialClick} name="github">Continue with <FontAwesomeIcon icon={faGithub} /></button >
