@@ -43,8 +43,8 @@ const Auth=() => {
           <SignInForm/>
           <div onClick={toggleAccount} className="authSpan">회원가입</div>
           <div className="socialWrap">
-            <button onClick={onSocialClick} name="google">Continue with <FontAwesomeIcon icon={faGoogle} /></button>
-            <button onClick={onSocialClick} name="github">Continue with <FontAwesomeIcon icon={faGithub} /></button >
+            <button onClick={onSocialClick} name="google">구글로 로그인 <FontAwesomeIcon icon={faGoogle} /></button>
+            <button onClick={onSocialClick} name="github">깃허브로 로그인 <FontAwesomeIcon icon={faGithub} /></button >
           </div>
         </div>
       )

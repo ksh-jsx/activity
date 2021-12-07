@@ -36,7 +36,7 @@ const SignInForm = () => {
             <input
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="이메일"
             required
             value={email}
             onChange={onChange}
@@ -44,7 +44,7 @@ const SignInForm = () => {
             <input
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             required
             value={password}
             onChange={onChange}
