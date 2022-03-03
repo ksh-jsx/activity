@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { authService, firebaseInstance } from "fbase";
-import AuthForm from "components/AuthForm";
-import TwitterIcon from '@material-ui/icons/Twitter';
+import SignInForm from "components/SignInForm";
+import SignUpForm from "components/SignUpForm";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
@@ -10,6 +11,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 const Auth=() => {
+
+  const [newAccount, setNewAccount] = useState(false);
+  
   const onSocialClick = async(event) => {
     const {target:{name}} = event;
     let provider;
@@ -20,6 +24,9 @@ const Auth=() => {
     }
     await authService.signInWithPopup(provider) ;
   }
+
+  const toggleAccount = () => setNewAccount((prev) => !prev);
+
   return (
     <div className="authWapper">
       <FontAwesomeIcon
@@ -29,11 +36,20 @@ const Auth=() => {
         style={{ marginBottom: 30 }}
         className="logo"
       />
-      <AuthForm/>
-      <div className="socialWrap">
-        <button onClick={onSocialClick} name="google">Continue with <FontAwesomeIcon icon={faGoogle} /></button>
-        <button onClick={onSocialClick} name="github">Continue with <FontAwesomeIcon icon={faGithub} /></button >
-      </div>
+      {newAccount ? (
+        <SignUpForm/>
+      ):(
+        <div>
+          <SignInForm/>
+          <div onClick={toggleAccount} className="authSpan">회원가입</div>
+          <div className="socialWrap">
+            <button onClick={onSocialClick} name="google">구글로 로그인 <FontAwesomeIcon icon={faGoogle} /></button>
+            <button onClick={onSocialClick} name="github">깃허브로 로그인 <FontAwesomeIcon icon={faGithub} /></button >
+          </div>
+        </div>
+      )
+      }
+      
     </div>
   );
 };

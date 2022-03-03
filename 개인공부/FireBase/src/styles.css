@@ -9,35 +9,40 @@ input:focus {outline:none;}
 }
 .authWapper{
     position: relative;
-    top:50%;
-    transform: translateY(50%);
+    top:150px;
+    
     width:100%;
     max-width:400px;
     margin: 0 auto;
+}
+.authWapper .authSpan{
+    margin-top: 20px;
+    cursor:pointer;
+    text-align: center;
 }
 .logo{
   position: relative;  
   left:50%;
   transform: translateX(-50%);
 }
-.authForm{
+.signInForm{
     height:250px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.authForm > div{
+.signInForm > div{
     display: flex;
     flex-direction: column;
 }
-.authForm input{
+.signInForm input{
     margin-top:30px;
     height:50px;
     border: 1px solid #bdbdbd;
     border-radius: 20px;
     padding-left: 15px;
 }
-.authForm input[type=submit]{
+.signInForm input[type=submit]{
     height:45px;
     font-size:20px;
     background-color: #079FFF;
@@ -45,12 +50,26 @@ input:focus {outline:none;}
     color: #ffffff;
     cursor:pointer;
 }
-.authSpan{
-    margin-top: 20px;
-    cursor:pointer;
-    text-align: center;
+.signUpForm{
+    height:500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
-.authSpan:hover,.socialWrap > *:hover,.authForm input[type=submit]:hover{
+.signUpForm > div{
+    display: flex;
+    flex-direction: column;
+}
+
+.signUpForm input[type=submit]{
+    height:45px;
+    font-size:20px;
+    background-color: #079FFF;
+    border: 1px solid #079FFF;
+    color: #ffffff;
+    cursor:pointer;
+}
+.authSpan:hover,.socialWrap > *:hover,.signInForm input[type=submit]:hover{
     text-decoration: underline;
 }
 .socialWrap{

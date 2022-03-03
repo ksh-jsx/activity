@@ -3,10 +3,14 @@ import AppRouter from "components/Router";
 import { authService } from "fbase";
 
 function App() {
+
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
+      console.log(user)
+      if(user.displayName == null) window.location.reload()
       if (user) {
         setUserObj({
           displayName: user.displayName,
@@ -19,14 +23,17 @@ function App() {
       setInit(true);
     });
   }, []);
+
   const refreshUser = () => {
     const user = authService.currentUser;
+
     setUserObj({
       displayName: user.displayName,
       uid: user.uid,
       updateProfile: (args) => user.updateProfile(args),
     });
   };
+
   return (
     <>
       {init ? (
