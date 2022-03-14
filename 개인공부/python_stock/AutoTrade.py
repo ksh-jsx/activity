@@ -2,7 +2,6 @@ import os, sys, ctypes
 import win32com.client
 import pandas as pd
 from datetime import datetime
-from slacker import Slacker
 import time, calendar
 import requests
 
@@ -12,7 +11,7 @@ def post_message(token, channel, text):
         data={"channel": channel,"text": text}
     )
  
-myToken = "xoxb-3193001508902-3193006392630-wq3LOduRZ1JqpgbFklWsabUI"
+myToken = "xoxb-3193001508902-3193006392630-W4ioV0jg93Q5WLIMgzLwNeyb"
 
 def dbgout(message):
     """인자로 받은 문자열을 파이썬 셸과 슬랙으로 동시에 출력한다."""
@@ -53,13 +52,13 @@ def check_creon_system():
     return True
 
 def get_current_price(code):
-    """인자로 받은 종목의 현재가, 매도호가, 매수호가를 반환한다."""
+    """인자로 받은 종목의 현재가, 매수호가, 매도호가를 반환한다."""
     cpStock.SetInputValue(0, code)  # 종목코드에 대한 가격 정보
     cpStock.BlockRequest()
     item = {}
     item['cur_price'] = cpStock.GetHeaderValue(11)   # 현재가
-    item['ask'] =  cpStock.GetHeaderValue(16)        # 매도호가
-    item['bid'] =  cpStock.GetHeaderValue(17)        # 매수호가    
+    item['ask'] =  cpStock.GetHeaderValue(16)        # 매수호가
+    item['bid'] =  cpStock.GetHeaderValue(17)        # 매도호가    
     return item['cur_price'], item['ask'], item['bid']
 
 def get_ohlc(code, qty):
@@ -98,10 +97,12 @@ def get_stock_balance(code):
         dbgout('평가손익: ' + str(cpBalance.GetHeaderValue(4)))
         dbgout('종목수: ' + str(cpBalance.GetHeaderValue(7)))
     stocks = []
+    
     for i in range(cpBalance.GetHeaderValue(7)):
         stock_code = cpBalance.GetDataValue(12, i)  # 종목코드
         stock_name = cpBalance.GetDataValue(0, i)   # 종목명
         stock_qty = cpBalance.GetDataValue(15, i)   # 수량
+        
         if code == 'ALL':
             dbgout(str(i+1) + ' ' + stock_code + '(' + stock_name + ')' 
                 + ':' + str(stock_qty))
@@ -139,7 +140,7 @@ def get_target_price(code):
             today_open = lastday[3]
         lastday_high = lastday[1]
         lastday_low = lastday[2]
-        target_price = today_open + (lastday_high - lastday_low) * 0.1
+        target_price = today_open + (lastday_high - lastday_low) * 0.5
         return target_price
     except Exception as ex:
         dbgout("`get_target_price() -> exception! " + str(ex) + "`")
@@ -175,13 +176,19 @@ def buy_etf(code):
         ma5_price = get_movingaverage(code, 5)   # 5일 이동평균가
         ma10_price = get_movingaverage(code, 10) # 10일 이동평균가
         buy_qty = 0        # 매수할 수량 초기화
-        if ask_price > 0:  # 매도호가가 존재하면   
+        if ask_price > 0:  # 매수호가가 존재하면   
             buy_qty = buy_amount // ask_price  
         stock_name, stock_qty = get_stock_balance(code)  # 종목명과 보유수량 조회
         #printlog('bought_list:', bought_list, 'len(bought_list):',
         #    len(bought_list), 'target_buy_count:', target_buy_count)     
-        if current_price > target_price and current_price > ma5_price \
-            and current_price > ma10_price:  
+        print('code: ',code)
+        print('current_price: ',current_price)
+        ##print('target_price: ' ,target_price)
+        ##print('ma5_price: ' ,ma5_price)
+        ##print('ma10_price: ' ,ma10_price)
+        ##print('---------------------')
+        if current_price > target_price and current_price > ma5_price and current_price > ma10_price:  
+        #if current_price > target_price :  
             printlog(stock_name + '(' + str(code) + ') ' + str(buy_qty) +
                 'EA : ' + str(current_price) + ' meets the buy condition!`')            
             cpTradeUtil.TradeInit()
@@ -204,10 +211,16 @@ def buy_etf(code):
                 printlog('주의: 연속 주문 제한에 걸림. 대기 시간:', remain_time/1000)
                 time.sleep(remain_time/1000) 
                 return False
+            rqStatus = cpOrder.GetDibStatus()
+            errMsg = cpOrder.GetDibMsg1()
+            if rqStatus != 0:
+                print('주문 실패: ', rqStatus, errMsg)
+                exit()
             time.sleep(2)
             printlog('현금주문 가능금액 :', buy_amount)
             stock_name, bought_qty = get_stock_balance(code)
             printlog('get_stock_balance :', stock_name, stock_qty)
+            
             if bought_qty > 0:
                 bought_list.append(code)
                 dbgout("`buy_etf("+ str(stock_name) + ' : ' + str(code) + 
@@ -254,8 +267,8 @@ if __name__ == '__main__':
         symbol_list = ['A122630', 'A252670', 'A233740', 'A250780', 'A225130',
              'A280940', 'A261220', 'A217770', 'A295000', 'A176950']
         bought_list = []     # 매수 완료된 종목 리스트
-        target_buy_count = 5 # 매수할 종목 수
-        buy_percent = 0.19   
+        target_buy_count = 4 # 매수할 종목 수
+        buy_percent = 0.25   
         printlog('check_creon_system() :', check_creon_system())  # 크레온 접속 점검
         stocks = get_stock_balance('ALL')      # 보유한 모든 종목 조회
         total_cash = int(get_current_cash())   # 100% 증거금 주문 가능 금액 조회

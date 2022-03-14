@@ -65,8 +65,6 @@ def post_message(token, channel, text):
     )
     print(response)
  
-myToken = "xoxb-3193001508902-3193006392630-wq3LOduRZ1JqpgbFklWsabUI"
+myToken = "xoxb-3193001508902-3193006392630-W4ioV0jg93Q5WLIMgzLwNeyb"
  
 post_message(myToken,"#stock",text)
-
-os.system("pause")
