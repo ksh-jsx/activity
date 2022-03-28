@@ -460,7 +460,7 @@ class Items(models.Model):
     tag = models.CharField(max_length=10)
     lat = models.DecimalField(max_digits=13, decimal_places=10)
     lng = models.DecimalField(max_digits=13, decimal_places=10)
-    loca = models.CharField(verbose_name='소속대학', max_length=15, choices=univ_list)
+    loca = models.CharField(verbose_name='소속대학', max_length=30, choices=univ_list)
     like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,blank=True,related_name='like_user_set',through='Like')
 
     @property
@@ -497,5 +497,5 @@ class CustomUser(AbstractUser):
         ('e', '오픈카톡방'),
         ('f', '기타'),
     )
-    job = models.CharField(verbose_name='직업', max_length=1, choices=Access_path)
+    job = models.CharField(verbose_name='경로', max_length=1, choices=Access_path)
 

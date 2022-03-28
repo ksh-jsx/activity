@@ -27,18 +27,19 @@ class App extends Component {
   }
 
   _callApi = () => {
-    return fetch('https://yts.lt/api/v2/list_movies.json?sort_by=like_count&limit=10')
+    return fetch('https://yts.mx/api/v2/list_movies.json?sort_by=download_count&limit=10')
     .then(res => res.json())
     .then(json => json.data.movies)
     .catch(err => console.log(err))
   }
 
   _callApi_whenScroll = () => {
-    return fetch('https://yts.lt/api/v2/list_movies.json?sort_by=like_count&limit=50')
+    return fetch('https://yts.mx/api/v2/list_movies.json?sort_by=download_count&limit=50')
     .then(res => res.json())
     .then(json => json.data.movies)
     .catch(err => console.log(err))
   }
+
   _renderMovies = () => { //영화정보 movie.js로 랜더링
     const movies = this.state.movies.map((movie) => {
       return <Movie title={movie.title} poster={movie.large_cover_image} key={movie.id}/>

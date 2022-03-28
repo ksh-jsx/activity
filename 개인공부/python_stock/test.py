@@ -1,7 +1,4 @@
 import win32com.client
-import requests
-import os
-import time
 
 # 연결 여부 체크
 objCpCybos = win32com.client.Dispatch("CpUtil.CpCybos")
@@ -42,29 +39,29 @@ exPrice = objStockMst.GetHeaderValue(55) #예상체결가
 exDiff = objStockMst.GetHeaderValue(56) #예상체결가 전일대비
 exVol = objStockMst.GetHeaderValue(57) #예상체결수량
  
-text = '삼성전가 현재가: '+str(offer)
-
+ 
+print("코드", code)
+print("이름", name)
+print("시간", time)
+print("종가", cprice)
+print("대비", diff)
+print("시가", open)
+print("고가", high)
+print("저가", low)
+print("매도호가", offer)
+print("매수호가", bid)
+print("거래량", vol)
+print("거래대금", vol_value)
+ 
+ 
 if (exFlag == ord('0')):
     print("장 구분값: 동시호가와 장중 이외의 시간")
 elif (exFlag == ord('1')) :
     print("장 구분값: 동시호가 시간")
 elif (exFlag == ord('2')):
     print("장 구분값: 장중 또는 장종료")
-    
+ 
 print("예상체결가 대비 수량")
 print("예상체결가", exPrice)
 print("예상체결가 대비", exDiff)
 print("예상체결수량", exVol)
-
-
- 
-def post_message(token, channel, text):
-    response = requests.post("https://slack.com/api/chat.postMessage",
-        headers={"Authorization": "Bearer "+token},
-        data={"channel": channel,"text": text}
-    )
-    print(response)
- 
-myToken = "xoxb-3193001508902-3193006392630-W4ioV0jg93Q5WLIMgzLwNeyb"
- 
-post_message(myToken,"#stock",text)

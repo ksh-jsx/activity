@@ -1,3 +1,4 @@
+
 import os, sys, ctypes
 import win32com.client
 import pandas as pd
@@ -181,8 +182,7 @@ def buy_etf(code):
         stock_name, stock_qty = get_stock_balance(code)  # 종목명과 보유수량 조회
         #printlog('bought_list:', bought_list, 'len(bought_list):',
         #    len(bought_list), 'target_buy_count:', target_buy_count)     
-        print('code: ',code)
-        print('current_price: ',current_price)
+        print('주식명 : ',stock_name,', 현재가 : ',current_price,'원',', 목표가 : ',target_price,'원')
         ##print('target_price: ' ,target_price)
         ##print('ma5_price: ' ,ma5_price)
         ##print('ma10_price: ' ,ma10_price)
@@ -264,8 +264,10 @@ def sell_all():
 
 if __name__ == '__main__': 
     try:
-        symbol_list = ['A122630', 'A252670', 'A233740', 'A250780', 'A225130',
-             'A280940', 'A261220', 'A217770', 'A295000', 'A176950']
+        symbol_list = ['A252670', 'A251340', 'A114800','A217770', 'A271050',
+                       'A371460', 'A069500','A228800', 'A229200', 'A371160',
+                       'A400970','A401470', 'A360750', 'A091170','A305540']
+        # etf 거래량 상위20에서 레버리지 제외
         bought_list = []     # 매수 완료된 종목 리스트
         target_buy_count = 4 # 매수할 종목 수
         buy_percent = 0.25   
@@ -278,7 +280,7 @@ if __name__ == '__main__':
         printlog('종목별 주문 금액 :', buy_amount)
         printlog('시작 시간 :', datetime.now().strftime('%m/%d %H:%M:%S'))
         soldout = False
-
+        
         while True:
             t_now = datetime.now()
             t_9 = t_now.replace(hour=9, minute=0, second=0, microsecond=0)
@@ -293,6 +295,7 @@ if __name__ == '__main__':
                 soldout = True
                 sell_all()
             if t_start < t_now < t_sell :  # AM 09:05 ~ PM 03:15 : 매수
+                print('-------------------')
                 for sym in symbol_list:
                     if len(bought_list) < target_buy_count:
                         buy_etf(sym)

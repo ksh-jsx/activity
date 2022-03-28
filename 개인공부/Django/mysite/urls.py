@@ -13,28 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+
 from django.contrib import admin
-from django.urls import (path, include)
+from django.urls import (path, re_path, include)
 from allauth.account import views
 from django.contrib.auth.views import LoginView,LogoutView
-from blog.views import SocialLoginCallbackView
+#from blog.views import SocialLoginCallbackView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    re_path(r'^admin/', admin.site.urls),
     path('user/', include('blog.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/',include('allauth.urls')),
     
-    url(r"^accounts/password/reset/$", views.password_reset,name="account_reset_password"),
-    url(r"^password/reset/done/$", views.password_reset_done,name="account_reset_password_done"),
-    url(r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",views.password_reset_from_key,name="account_reset_password_from_key"),
-    url(r"^password/reset/key/done/$", views.password_reset_from_key_done,name="account_reset_password_from_key_done"),
+    re_path(r"^accounts/password/reset/$", views.password_reset,name="account_reset_password"),
+    re_path(r"^password/reset/done/$", views.password_reset_done,name="account_reset_password_done"),
+    re_path(r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",views.password_reset_from_key,name="account_reset_password_from_key"),
+    re_path(r"^password/reset/key/done/$", views.password_reset_from_key_done,name="account_reset_password_from_key_done"),
     
-    url(r'^accounts/login/$',  views.login, name='login'),
-    url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
-    path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
-    url(r'', include('blog.urls')),
+    re_path(r'^accounts/login/$',  views.login, name='login'),
+    re_path(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
+    #path('accounts/login/<provider>/callback/', SocialLoginCallbackView.as_view()),
+    re_path(r'', include('blog.urls')),
     
     
 ]

@@ -15,7 +15,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.conf import settings
 from django.views.generic.base import TemplateView, View
-from django.middleware.csrf import _compare_salted_tokens
+#from django.middleware.csrf import _compare_salted_tokens
 from blog.oauth.providers.naver import NaverLoginMixin
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.sites.shortcuts import get_current_site
@@ -24,7 +24,7 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from django.contrib import messages
 
 
@@ -250,7 +250,7 @@ def email_to_admin(request):
     return render(request, 'admin/email.html', {'userId': userId, 'test':request.META['HTTP_USER_AGENT']})
 
 
-
+'''
 class SocialLoginCallbackView(NaverLoginMixin, View):
 
     success_url = settings.LOGIN_REDIRECT_URL
@@ -280,4 +280,4 @@ class SocialLoginCallbackView(NaverLoginMixin, View):
     def set_session(self, **kwargs):
         for key, value in kwargs.items():
             self.request.session[key] = value
-
+'''
