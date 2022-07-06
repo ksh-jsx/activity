@@ -1,19 +1,17 @@
-import React, {Component} from 'react';
-import store from '../store';
+import React, { useState, useEffect } from "react";
 
-export default class AddNumber extends Component {
-  state = {size:1}
-  render() {
-    return (
-      <div>
-        <h1>Add Number</h1>
-        <input type="button" value="+" onClick={function(){          
-          this.props.onClick(this.state.size);
-        }.bind(this)}/>
-        <input type="text" value={this.state.size} onChange={function(e){
-          this.setState({size:Number(e.target.value)});
-        }.bind(this)}/>
-      </div>
-    )
-  }
+const AddNumber = ({click}) =>{
+
+  const [size, setSize] = useState(1); 
+
+  return (
+    <div>
+      <h1>Add Number</h1>
+      <input type="button" value="+" onClick={()=>click(size)}/>
+      <input type="text" value={size} onChange={(e)=>setSize(Number(e.target.value))}/>
+    </div>
+  );
 }
+
+export default AddNumber;
+
