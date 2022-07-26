@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ex/model/model_movie.dart';
@@ -47,7 +45,6 @@ class _LikeScreenState extends State<LikeScreen> {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_ex/screen/like_screnn.dart';
+import 'package:flutter_ex/screen/more_screnn.dart';
 import 'package:flutter_ex/screen/search_screnn.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp>{
               HomeScreen(),
               SearchScreen(),
               LikeScreen(),
-              Container(child: Center(child: Text('More'),),),
+              MoreScreen(),
             ],
           ),
           bottomNavigationBar: Bottom(),
