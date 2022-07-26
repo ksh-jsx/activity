@@ -1,8 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_ex/screen/like_screnn.dart';
+import 'package:flutter_ex/screen/search_screnn.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ex/screen/home_screen.dart';
 import 'package:flutter_ex/widget/bottom_bar.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
@@ -13,7 +22,7 @@ class _MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       
+
       title: 'NetFilx',
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -27,8 +36,8 @@ class _MyAppState extends State<MyApp>{
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              Container(child: Center(child: Text('Search'),),),
-              Container(child: Center(child: Text('Save'),),),
+              SearchScreen(),
+              LikeScreen(),
               Container(child: Center(child: Text('More'),),),
             ],
           ),
