@@ -1,17 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_ex/screen/add_screen.dart';
-import 'package:flutter_ex/screen/like_screnn.dart';
-import 'package:flutter_ex/screen/more_screnn.dart';
-import 'package:flutter_ex/screen/search_screnn.dart';
-import 'firebase_options.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_ex/screen/home_screen.dart';
-import 'package:flutter_ex/widget/bottom_bar.dart';
+import 'package:tdl/screen/home_screen.dart';
+import 'package:tdl/widget/bottom_bar.dart';
 
 void main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   runApp(MyApp());
 }
 
@@ -25,23 +17,22 @@ class _MyAppState extends State<MyApp>{
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      title: 'NetFilx',
+      title: 'TodoList',
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.black,
         accentColor: Colors.white,
       ),
       home: DefaultTabController(
-        length: 5,
+        length: 4,
         child: Scaffold(
           body:TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              SearchScreen(),
-              LikeScreen(),
-              AddScreen(),
-              MoreScreen(),
+              Container( child: Text('2'),),
+              Container( child: Text('3'),),
+              Container( child: Text('4'),),
             ],
           ),
           bottomNavigationBar: Bottom(),
