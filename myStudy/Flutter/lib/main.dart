@@ -9,6 +9,7 @@ import 'package:flutter_ex/screen/home_screen.dart';
 import 'package:flutter_ex/widget/bottom_bar.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

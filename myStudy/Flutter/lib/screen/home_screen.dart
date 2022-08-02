@@ -63,11 +63,7 @@ class TopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Image.asset(
-            'bbongflix_logo.png',
-            fit: BoxFit.contain,
-            height: 25,
-          ),
+          Icon(Icons.apple),
           Container(
             padding: EdgeInsets.only(right:1),
             child: Text(

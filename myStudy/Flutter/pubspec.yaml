@@ -35,7 +35,7 @@ dependencies:
   flutter_linkify:
   url_launcher:
   get:
-
+  flutter_native_splash: ^0.1.4
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -56,9 +56,10 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+assets:
+  - assets/bbongflix_logo.png
 flutter:
-  assets:
-    - assets/
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
