@@ -1,14 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
+import {useDispatch} from 'react-redux';
 
-class Header extends Component {
-  render() {
-    return (
-      <header>
-        <h1>WEB</h1>
-        World Wide WEB
-      </header>
-    );
+
+const Header = () =>{
+
+  const dispatch = useDispatch();
+  
+  const onClick = () => {
+    dispatch({type:'WELCOME'})
   }
+
+  return (
+    <header>
+      <h1>
+        <a href="#welcome" onClick={onClick}>WEB</a>
+        </h1>
+      World Wide WEB
+    </header>
+  );
+
 }
 
 export default Header;
