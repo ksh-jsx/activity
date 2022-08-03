@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {useDispatch, useSelector} from 'react-redux';
 
 const Nav = () =>{
@@ -8,11 +8,15 @@ const Nav = () =>{
   const tags = [];
   
   const onClick = (id) => {
-    dispatch({type:'READ', id:id})
+    dispatch({type:'READ', id:Number(id)})
   }
-
+  
   data.map((x)=>(
-    tags.push(<li key={x.id}><a href="#" data-id={x.id} onClick={(e)=>onClick(e.target.dataset.id)}>{x.title}</a></li>)
+    tags.push(
+      <li key={x.id}>
+        <a href="#" data-id={x.id} onClick={(e)=>onClick(e.target.dataset.id)}>{x.title}</a>
+      </li>
+    )
   ));
 
   return (
