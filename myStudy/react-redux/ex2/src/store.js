@@ -33,6 +33,7 @@ const reducer = (state=initState, action) => {
     };
   }
   if(action.type === 'CREATE_PROCESS'){
+    
     const newId = ++state.max_content_id;
     const newContents = [
       ...state.contents,
@@ -49,6 +50,24 @@ const reducer = (state=initState, action) => {
       max_content_id:newId,
       mode:'READ',
       selected_content_id:newId
+    };
+  }
+  if(action.type === 'UPDATE_PROCESS'){
+    
+    const newContents = [
+      ...state.contents,
+    ]
+
+    newContents.filter(x=>x.id === action.id).map(x=>{
+      x.title = action.title;
+      x.desc = action.desc;
+    })
+
+    return {
+      ...state, 
+      contents: newContents,
+      mode:'READ',
+      selected_content_id:action.id
     };
   }
   return state;
