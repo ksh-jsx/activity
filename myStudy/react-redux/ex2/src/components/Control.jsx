@@ -7,6 +7,11 @@ const Control = () => {
 
   const onClick = (e,mode) =>{
     e.preventDefault();
+    if(mode === 'DELETE_PROCESS'){
+      if(!window.confirm('REALLY??'))
+        return;
+    }
+
     dispatch({type:mode})
   }
 
@@ -15,7 +20,7 @@ const Control = () => {
       <li><a href="create" onClick={(e)=>onClick(e,'CREATE')}>create</a></li>
       <li><a href="update" onClick={(e)=>onClick(e,'UPDATE')}>update</a></li>
       <li>
-        <input type="button" value="delete" onClick={(e)=>onClick(e,'DELETE')}/>
+        <input type="button" value="delete" onClick={(e)=>onClick(e,'DELETE_PROCESS')}/>
       </li>
     </ul>
   );

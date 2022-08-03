@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 const Read = () => {
 
   const contents = useSelector((store) => (
-    store.mode === 'WELCOME' ? store.welcome_content : store.contents[store.selected_content_id-1]
+    store.mode === 'WELCOME' ? store.welcome_content : store.contents.filter(x=>x.id===store.selected_content_id)
   ));  
 
   return (

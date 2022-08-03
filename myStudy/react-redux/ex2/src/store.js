@@ -70,6 +70,17 @@ const reducer = (state=initState, action) => {
       selected_content_id:action.id
     };
   }
+  if(action.type === 'DELETE_PROCESS'){
+    
+    const newContents = state.contents.filter(x=>x.id !== state.selected_content_id)
+    
+    console.log(newContents)
+    return {
+      ...state, 
+      contents: newContents,
+      mode:'WELCOME',
+    };
+  }
   return state;
 }
 export default createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
