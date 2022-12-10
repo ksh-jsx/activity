@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/web-n/Nodejs#readme",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "jquery": "^3.3.1",
     "mssql": "^5.1.0",
     "mysql": "^2.16.0",
