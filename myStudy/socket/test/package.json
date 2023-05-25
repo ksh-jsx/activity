@@ -1,0 +1,32 @@
+{
+  "name": "test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "server": "nodemon"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "express": "^4.18.2",
+    "next": "13.4.3",
+    "pug": "^3.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scroll-to-bottom": "^4.2.0",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.8",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.5",
+    "nodemon": "^2.0.22"
+  }
+}
