@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-function Chat({ socket, username, room }) {
+function Chat({ socket, username, room, roomKey }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
-        room,
+        key: roomKey,
         author: username,
         message: currentMessage,
         time:
@@ -16,7 +16,7 @@ function Chat({ socket, username, room }) {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
-      console.log("1: " + messageData);
+
       await socket.emit("send_message", messageData);
 
       setMessageList((list) => [...list, messageData]);
@@ -33,29 +33,31 @@ function Chat({ socket, username, room }) {
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Live Chat</p>
+        <p>
+          Live Chat - 방제: {room} key:{roomKey}
+        </p>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
           {messageList.map((messageContent, i) =>
             messageContent ? (
-              <div
-                className="message"
-                id={username === messageContent.author ? "you" : "other"}
-                key={i}
-              >
-                <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
+              <div className="message" key={i}>
+                <div style={{ border: "1px solid", margin: "5px" }}>
+                  <div className="message-content" style={{ display: "flex" }}>
+                    <div>
+                      {messageContent.author}
+                      {username === messageContent.author && "(나)"}: &nbsp;
+                    </div>
+                    <div>{messageContent.message}</div>
                   </div>
                   <div className="message-meta">
                     <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
+                    <p id="author">{}</p>
                   </div>
                 </div>
               </div>
             ) : (
-              <>대기...</>
+              <>데이터 이상..</>
             )
           )}
         </ScrollToBottom>

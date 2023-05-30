@@ -17,13 +17,14 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   //유저를 특정 룸에 조인시키기
   socket.on("join_room", (data) => {
-    console.log(data);
-    socket.join(data);
+    console.log(data.key);
+    socket.join(data.key);
+    !data.isExist && io.emit("room_list", data);
   });
 
   //메시지를 받아 특정 룸에 메시지 전송하기
   socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message");
+    socket.to(data.key).emit("receive_message", data);
   });
 
   socket.on("disconnect", () => {
