@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import Chat from "./Chat";
-import { nameStorage } from "@/utils/storage";
+import { nameStorage } from "@/lib/storage";
 
 const socket = io.connect("http://localhost:4000"); //프론트를 백과 연결하는 부분
 
