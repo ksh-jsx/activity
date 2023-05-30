@@ -1,27 +1,31 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import Chat from "./Chat";
+import { nameStorage } from "@/utils/storage";
 
 const socket = io.connect("http://localhost:4000"); //프론트를 백과 연결하는 부분
 
 function Socket() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  const [userName, setUserName] = useState("");
+  const [roomName, setRoomName] = useState("");
   const [key, setKey] = useState("");
   const [roomList, setRoomList] = useState([]);
   const [showChat, setShowChat] = useState(false);
 
   const createRoom = () => {
-    if (username !== "" && room !== "") {
+    if (userName !== "" && roomName !== "") {
+      nameStorage.set(userName);
+
       const newKey = generateRandomString();
       setKey(newKey);
 
       socket.emit("join_room", {
-        room,
-        username,
+        roomName,
+        userName,
         key: newKey,
         isExist: false,
       });
+
       setShowChat(true);
     } else {
       alert("닉네임과 방제를 입력하세요");
@@ -29,8 +33,11 @@ function Socket() {
   };
 
   const joinRoom = () => {
-    if (username !== "") {
-      socket.emit("join_room", { room, username, key, isExist: true });
+    if (userName !== "") {
+      nameStorage.set(userName);
+
+      socket.emit("join_room", { roomName, userName, key, isExist: true });
+
       setShowChat(true);
     } else {
       alert("닉네임을 입력하세요");
@@ -38,15 +45,14 @@ function Socket() {
   };
 
   const onClickRoom = (data) => {
-    setRoom(data.room);
+    setRoomName(data.room);
     setKey(data.key);
 
     joinRoom();
   };
 
   const generateRandomString = (length = 10) => {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
 
     for (let i = 0; i < length; i++) {
@@ -58,6 +64,11 @@ function Socket() {
   };
 
   useEffect(() => {
+    const name = nameStorage.get();
+    setUserName(name);
+  }, []);
+
+  useEffect(() => {
     socket.on("room_list", (data) => {
       setRoomList((roomList) => [...roomList, data]);
     });
@@ -67,24 +78,27 @@ function Socket() {
     <div className="App">
       {!showChat ? (
         <>
-          <h3>create A Room</h3>
+          <h3>닉네임을 입력하세요</h3>
           <input
             type="text"
             placeholder="이름"
+            value={userName}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setUserName(e.target.value);
             }}
           />
+          <h3>방 만들기</h3>
           <input
             type="text"
             placeholder="방제"
+            value={roomName}
             onChange={(e) => {
-              setRoom(e.target.value);
+              setRoomName(e.target.value);
             }}
           />
           <button onClick={createRoom}>create</button>
 
-          <h3>Room List</h3>
+          {roomList.length > 0 && <h3>방 리스트</h3>}
           {roomList.map((data) => (
             <div
               key={data.key}
@@ -95,12 +109,12 @@ function Socket() {
                 cursor: "pointer",
               }}
             >
-              제목: {data.room} 방장: {data.username}
+              제목: {data.roomName} 방장: {data.userName}
             </div>
           ))}
         </>
       ) : (
-        <Chat socket={socket} username={username} room={room} roomKey={key} />
+        <Chat socket={socket} userName={userName} roomName={roomName} roomKey={key} />
       )}
     </div>
   );
