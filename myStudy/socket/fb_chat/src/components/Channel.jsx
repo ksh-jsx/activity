@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import firebase from "firebase/compat/app";
 import PropTypes from "prop-types";
-import firebase from "firebase/app";
+import React, { useEffect, useRef, useState } from "react";
 import { useFirestoreQuery } from "../hooks";
 // Components
 import Message from "./Message";
